@@ -5,19 +5,29 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 4f;
-    [SerializeField]
     private GameObject _enemyPrefab;
-    private void OnTriggerEnter(Collider other)
+    private GeneralScene generalScene = GeneralScene.Instance;
+    [SerializeField]
+    private float _speed = 4f;
+    public float Speed
+    {
+        get => _speed;
+    }
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            other.gameObject.GetComponent<Player>().decreaseLife();
-            DestroyAndInitNewEnemy();
+            Player player = other.gameObject.GetComponent<Player>();
+            if(player.GetType() != null)
+            {
+                player.decreaseLife();
+            }
+            destroyAndInitNewEnemy();
+            return;
         }
         else if (other.tag == "Laser")
         {
-            DestroyAndInitNewEnemy();
+            destroyAndInitNewEnemy();
             Destroy(other.gameObject);
         };
 
@@ -36,12 +46,15 @@ public class Enemy : MonoBehaviour
     }
     Vector3 getRandomVector()
     {
-        float randomX = Random.Range(-9f, 9f);
+        float randomX = Random.Range(-1 * (generalScene.XScreenBorder - 1), (generalScene.XScreenBorder - 1));
         return new Vector3(randomX, 7.5f, 0);
     }
-    void DestroyAndInitNewEnemy()
+    void destroyAndInitNewEnemy()
     {
-        Instantiate(_enemyPrefab, getRandomVector(), Quaternion.identity);
         Destroy(this.gameObject);
+    }
+    public GameObject generateNewEnemy()
+    {
+        return Instantiate(_enemyPrefab, getRandomVector(), Quaternion.identity);
     }
 }

@@ -3,42 +3,67 @@ namespace UnityEngine
     public class Life
     {
         private int _maxLife;
+        public int MaxLife
+        {
+            get => _maxLife;
+            set
+            {
+                if (value >= 1)
+                {
+                    _maxLife = value;
+                }
+            }
+        }
         private int _currentLife;
+        public int CurrentLife
+        {
+            get => _currentLife;
+            set
+            {
+                if (value >= 0 || value <= this.MaxLife)
+                {
+                    _currentLife = value;
+                }
+            }
+        }
         private bool _isAlive = true;
-
+        public bool IsAlive
+        {
+            get => _isAlive;
+            set
+            {
+                _isAlive = value;
+            }
+        }
         public Life(int maxLife = 1)
         {
-            this._maxLife = maxLife;
-            this._currentLife = maxLife;
+            this.MaxLife = maxLife;
+            this.CurrentLife = maxLife;
         }
         public void decreseCurrentLife(int amount = 1)
         {
-            if (amount >= this._currentLife)
+            if (amount >= this.CurrentLife)
             {
-                this._isAlive = false;
-                this._currentLife = 0;
+                this.IsAlive = false;
+                this.CurrentLife = 0;
+                return;
             }
             else
             {
-                this._currentLife -= amount;
+                this.CurrentLife -= amount;
             }
         }
-
         public void increaseCurrentLife(int amount)
         {
-            if ((amount + this._currentLife) >= this._maxLife)
+            if ((amount + this.CurrentLife) >= this.MaxLife)
             {
-                this._currentLife = this._maxLife;
+                this.CurrentLife = this.MaxLife;
+                return;
             }
             else
             {
-                this._currentLife += amount;
+                this.CurrentLife += amount;
             }
-        }
-
-        public bool isAlive()
-        {
-            return _isAlive;
         }
     }
 }

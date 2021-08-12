@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // OTHER COMPONENTS
+    private GeneralScene generalScene = GeneralScene.Instance;
+    private Life _life = new Life(3);
+    public Life Life
+    {
+        get => _life;
+    }
+    // GAME OBJs
+    [SerializeField]
+    private GameObject _laserPrefab;
+    private SpawnManager _spawnManager;
+    //  VARs
     [SerializeField]
     private float _speed = 8f;
     [SerializeField]
     private float _fireRate = 0.15f;
-    [SerializeField]
-    private GameObject _laserPrefab;
     private float _cooldownTime = 0.0f;
-    private float _yScreenLimit = 6f;
-    private float _xScreenLimit = 13f;
-
-    private Life life = new Life(3);
-    public Life getLife()
-    {
-        return life;
-    }
-
 
     void Start()
     {
         transform.position = new Vector3(0f, 0f, 0f);
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        if (_spawnManager == null)
+        {
+            Debug.LogError("SpawnManager is Null");
+        }
     }
     void Update()
     {
@@ -50,15 +56,16 @@ public class Player : MonoBehaviour
     {
         float yPosition = transform.position.y;
         float xPosition = transform.position.x;
-
-        transform.position = new Vector3(xPosition, Mathf.Clamp(yPosition, -1 * _yScreenLimit, _yScreenLimit), 0);
-        if (xPosition >= _xScreenLimit)
+        // Y Border Block
+        transform.position = new Vector3(xPosition, Mathf.Clamp(yPosition, -1 * generalScene.YScreenBorder, generalScene.YScreenBorder), 0);
+        // X Border Wrap
+        if (xPosition >= (generalScene.XScreenBorder + 2))
         {
-            transform.position = new Vector3(-1 * (_xScreenLimit - 1), yPosition, 0);
+            transform.position = new Vector3(-1 * (generalScene.XScreenBorder + 1), yPosition, 0);
         }
-        else if (xPosition <= -1 * _xScreenLimit)
+        else if (xPosition <= -1 * (generalScene.XScreenBorder + 2))
         {
-            transform.position = new Vector3(_xScreenLimit - 1, yPosition, 0);
+            transform.position = new Vector3((generalScene.XScreenBorder + 1), yPosition, 0);
         }
     }
     bool CheckIfFiringLaser()
@@ -68,12 +75,17 @@ public class Player : MonoBehaviour
     void FireLaser()
     {
         _cooldownTime = Time.time + _fireRate;
-        Vector3 v = transform.position + new Vector3(0, 0.8f, 0);
+        Vector3 v = transform.position + new Vector3(0, 1.1f, 0);
         Instantiate(_laserPrefab, v, Quaternion.identity);
     }
     public void decreaseLife(int amount = 1)
     {
-        life.decreseCurrentLife(amount);
-        if (!life.isAlive()) Destroy(this.gameObject);
+        this.Life.decreseCurrentLife(amount);
+        if (!this.Life.IsAlive) onDeath();
+    }
+    private void onDeath()
+    {
+        _spawnManager.onPlayerDeath();
+        Destroy(this.gameObject);
     }
 };
