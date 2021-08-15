@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Spawn_Manager
   - Container
+  - Projectiles
+  - Power_Up
   layers:
   - Default
   - TransparentFX

@@ -1,10 +1,10 @@
 namespace UnityEngine
 {
-    public class GeneralScene
+    public class GlobalInfo
     {
-        private static readonly GeneralScene _instance = new GeneralScene();
-        private GeneralScene() { }
-        public static GeneralScene Instance
+        private static readonly GlobalInfo _instance = new GlobalInfo();
+        private GlobalInfo() { }
+        public static GlobalInfo Instance
         {
             get => _instance;
         }

@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private GameObject _enemyPrefab;
-    private GeneralScene generalScene = GeneralScene.Instance;
+    private GlobalInfo globalInfo = GlobalInfo.Instance;
     [SerializeField]
     private float _speed = 4f;
     public float Speed
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
             destroyAndInitNewEnemy();
             return;
         }
-        else if (other.tag == "Laser")
+        else if (other.tag == "Projectiles")
         {
             destroyAndInitNewEnemy();
             Destroy(other.gameObject);
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
     }
     Vector3 getRandomVector()
     {
-        float randomX = Random.Range(-1 * (generalScene.XScreenBorder - 1), (generalScene.XScreenBorder - 1));
+        float randomX = Random.Range(-1 * (globalInfo.XScreenBorder - 1), (globalInfo.XScreenBorder - 1));
         return new Vector3(randomX, 7.5f, 0);
     }
     void destroyAndInitNewEnemy()

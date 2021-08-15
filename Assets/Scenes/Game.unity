@@ -153,6 +153,12 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 887903101113844994, guid: e216ebcd15444453db12723dd40c945a,
     type: 3}
   _enemyContainer: {fileID: 1431465043}
+  _tripleShotPrefab: {fileID: 8973072509732386228, guid: 4b9cca65c7a7c47eea03f92b4365b784,
+    type: 3}
+  _tripleShotContainer: {fileID: 1349458025}
+  _speedUpPrefab: {fileID: 3491889970003748375, guid: 00fc59f1858834bb2a48029c42f9cf4f,
+    type: 3}
+  _speedUpContainer: {fileID: 1838899535}
 --- !u!4 &367471366
 Transform:
   m_ObjectHideFlags: 0
@@ -165,6 +171,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1431465044}
+  - {fileID: 1349458026}
+  - {fileID: 1838899536}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -424,6 +432,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1349458025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1349458026}
+  m_Layer: 0
+  m_Name: TripleShot_PowerUp_Container
+  m_TagString: Container
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1349458026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349458025}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 367471366}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1365414362
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1365414365}
   - component: {fileID: 1365414364}
+  - component: {fileID: 1365414367}
   - component: {fileID: 1365414363}
   - component: {fileID: 1365414366}
   m_Layer: 0
@@ -457,8 +496,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserPrefab: {fileID: 5120745348146560483, guid: 69b514c6bcdfa4b4ebaa1dedeb81e580,
     type: 3}
+  _tripleShotPrefab: {fileID: 861468724292514354, guid: 951b169c91e074c20a8d1342df7c55af,
+    type: 3}
   _speed: 10
   _fireRate: 0.15
+  _isTripleShot: 0
+  _isSpeedUp: 0
 --- !u!212 &1365414364
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -517,8 +560,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1365414362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: -4.18, z: 0}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -549,6 +592,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.294961, y: 3.868493}
   m_EdgeRadius: 0
+--- !u!114 &1365414367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365414362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d551b791e58f04fe9ac6d62df3ccefae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxLife: 3
+  _currentLife: 3
+  _isAlive: 1
 --- !u!1 &1431465043
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1431465044}
   m_Layer: 0
-  m_Name: Enemy Container
+  m_Name: Enemy_Container
   m_TagString: Container
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -578,4 +636,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 367471366}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1838899535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1838899536}
+  m_Layer: 0
+  m_Name: SpeedUp_PowerUp_Container
+  m_TagString: Container
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1838899536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838899535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 367471366}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
