@@ -10,13 +10,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
-    private GameObject _tripleShotPrefab;
+    private GameObject[] _powerups;
     [SerializeField]
-    private GameObject _tripleShotContainer;
-    [SerializeField]
-    private GameObject _speedUpPrefab;
-    [SerializeField]
-    private GameObject _speedUpContainer;
+    private GameObject _powerUpsContainer;
     // VARs
     private readonly GlobalInfo globalInfo = GlobalInfo.Instance;
     private bool _isSpawning = true;
@@ -31,12 +27,11 @@ public class SpawnManager : MonoBehaviour
     // Core Methods
     void Start()
     {
-        StartCoroutine(SpawnRoutine(_enemyPrefab, _enemyContainer, 3.0f));
-        StartCoroutine(SpawnRoutine(_tripleShotPrefab, _tripleShotContainer, Random.Range(8.0f, 15.0f)));
-        StartCoroutine(SpawnRoutine(_speedUpPrefab, _speedUpContainer, Random.Range(8.0f, 15.0f)));
+        StartCoroutine(SpawnRoutineEnemies(_enemyPrefab, _enemyContainer, 3.0f));
+        StartCoroutine(SpawnRoutinePowerUps());
     }
     // General Methods
-    IEnumerator SpawnRoutine(GameObject prefab, GameObject container, float timeToWait)
+    IEnumerator SpawnRoutineEnemies(GameObject prefab, GameObject container, float timeToWait)
     {
         while (this.IsSpawning)
         {
@@ -45,9 +40,22 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(timeToWait);
         }
     }
+    IEnumerator SpawnRoutinePowerUps()
+    {
+        while (this.IsSpawning)
+        {
+            GameObject spawn = instantiateGameObj(_powerups[generateTandomPowerUpId()]);
+            spawn.transform.parent = _powerUpsContainer.transform;
+            yield return new WaitForSeconds(Random.Range(8.0f, 15.0f));
+        }
+    }
     GameObject instantiateGameObj(GameObject prefab)
     {
         return Instantiate(prefab, generateVector3(), Quaternion.identity);
+    }
+    int generateTandomPowerUpId()
+    {
+        return Random.Range(0, 3);
     }
     Vector3 generateVector3()
     {

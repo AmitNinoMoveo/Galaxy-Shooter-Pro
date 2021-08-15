@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private GameObject _enemyPrefab;
+    [SerializeField]
+    private Player _player;
     private GlobalInfo globalInfo = GlobalInfo.Instance;
     [SerializeField]
     private float _speed = 4f;
@@ -13,20 +15,26 @@ public class Enemy : MonoBehaviour
     {
         get => _speed;
     }
+    private void Start()
+    {
+        _player = GameObject.Find("Player").GetComponent<Player>();
+        if (_player.GetType() == null)
+        {
+            Debug.Log("Enemy Component: Player is null");
+        }
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            Player player = other.gameObject.GetComponent<Player>();
-            if(player.GetType() != null)
-            {
-                player.decreaseLife();
-            }
+            _player.decreaseLife();
+            _player.addScore(Random.Range(2, 5));
             destroyAndInitNewEnemy();
             return;
         }
         else if (other.tag == "Projectiles")
         {
+            _player.addScore(Random.Range(8, 15));
             destroyAndInitNewEnemy();
             Destroy(other.gameObject);
         };

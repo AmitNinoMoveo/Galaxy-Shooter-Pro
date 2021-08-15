@@ -13,11 +13,14 @@ public class PowerUp : MonoBehaviour
     }
     [SerializeField]
     private int PowerUpId;
-    private void OnTriggerEnter2D(Collider2D other) {
+    // PowerUpIds are - 0 = Triple Shot, 1: Speed up, 2: Shields
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         if (other.transform.name == "Player")
         {
             Player player = other.transform.GetComponent<Player>();
-            if(player != null)
+            if (player != null)
             {
                 player.applyPowerUp(PowerUpId);
                 Destroy(this.gameObject);
@@ -26,12 +29,12 @@ public class PowerUp : MonoBehaviour
     }
     void Update()
     {
-       calculateMovement(); 
+        calculateMovement();
     }
     void calculateMovement()
     {
         transform.Translate(Vector3.down * Speed * Time.deltaTime);
-        if(transform.position.y < (-1 * GlobalInfo.Instance.YScreenBorder))
+        if (transform.position.y < (-1 * GlobalInfo.Instance.YScreenBorder))
         {
             Destroy(this.gameObject);
         };
