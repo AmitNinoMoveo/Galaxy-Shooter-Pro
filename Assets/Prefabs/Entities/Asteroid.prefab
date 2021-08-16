@@ -133,8 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ab2e0ee37ae4ba7aa55db96d643c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnManager: {fileID: 0}
   _astroidAnimation: {fileID: 4589604251842173651, guid: 3cfa60fea153044f2b02202300d192d0,
     type: 3}
+  _explosionAudio: {fileID: 5861531421652417151, guid: 294cc82eb2cfd4d19b292cae8e761c2b,
+    type: 3}
+  _spawnManager: {fileID: 0}
   _rotationSpeed: 20
   _movementSpeed: 1.8

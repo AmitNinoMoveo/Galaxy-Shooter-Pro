@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private GlobalInfo globalInfo = GlobalInfo.Instance;
     private Life _life;
     private UIManager _uiManager;
+    private AudioManager _audioManager;
     // GAME OBJs
     [SerializeField]
     private GameObject _laserPrefab;
@@ -101,18 +102,15 @@ public class Player : MonoBehaviour
     // Core Methods
     void Start()
     {
-        _life = transform.GetComponent<Life>();
-        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
-        if (_uiManager == null)
-        {
-            Debug.LogError("Player Component: UI Manager is Null");
-        }
         transform.position = new Vector3(0f, -1 * globalInfo.YScreenBorder + 1, 0f);
+        _life = transform.GetComponent<Life>();
+        if (_life == null) Debug.LogError("Player::Life is null");
+        _audioManager = transform.GetComponent<AudioManager>();
+        if (_audioManager == null) Debug.LogError("Player::Audio Manager is null");
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        if (_uiManager == null) Debug.LogError("Player::UI Manager is null");
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-        if (_spawnManager == null)
-        {
-            Debug.LogError("Player Component: SpawnManager is Null");
-        }
+        if (_spawnManager == null) Debug.LogError("Player::SpawnManager is null");
     }
     void Update()
     {
@@ -147,6 +145,7 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
+        Instantiate(_audioManager.PowerUp);
     }
     void setSpeedUp()
     {
@@ -223,12 +222,12 @@ public class Player : MonoBehaviour
         if (IsTripleShot)
         {
             FireTripleShot();
-            return;
         }
         else
         {
             FireDefaultProjectile();
         }
+        Instantiate(_audioManager.Projectile);
     }
     void FireDefaultProjectile()
     {
@@ -268,6 +267,7 @@ public class Player : MonoBehaviour
     {
         _spawnManager.onPlayerDeath();
         _uiManager.activateGameOver();
+        Instantiate(_audioManager.Explosion);
         Destroy(this.gameObject);
     }
     private void managePlayerHurtAnimations()

@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
+    private GameObject _explosionAudio;
     private Player _player;
     private Animator _animator;
     private BoxCollider2D _boxCollider;
@@ -29,20 +30,11 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
-        if (_player.GetType() == null)
-        {
-            Debug.Log("Enemy Component::Player is null");
-        }
+        if (_player.GetType() == null) Debug.Log("Enemy Component::Player is null");
         _animator = GetComponent<Animator>();
-        if (_animator.GetType() == null)
-        {
-            Debug.Log("Enemy Component::Animator is null");
-        }
+        if (_animator.GetType() == null) Debug.Log("Enemy Component::Animator is null");
         _boxCollider = GetComponent<BoxCollider2D>();
-        if (_animator.GetType() == null)
-        {
-            Debug.Log("Enemy Component::BoxCollider2D is null");
-        }
+        if (_animator.GetType() == null) Debug.Log("Enemy Component::BoxCollider2D is null");
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -71,6 +63,7 @@ public class Enemy : MonoBehaviour
         Speed = 1f;
         _animator.SetTrigger("OnEnemyDeath");
         _boxCollider.enabled = false;
+        Instantiate(_explosionAudio);
         Destroy(this.gameObject, 2.8f);
     }
     //Movement Methods
