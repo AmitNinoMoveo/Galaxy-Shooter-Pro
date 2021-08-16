@@ -8,7 +8,13 @@ public class Player : MonoBehaviour
     private GlobalInfo globalInfo = GlobalInfo.Instance;
     private Life _life;
     private UIManager _uiManager;
-    private AudioManager _audioManager;
+    private AudioSource _audioSource;
+    [SerializeField]
+    private AudioClip _projectileAudioClip;
+    [SerializeField]
+    private AudioClip _powerupAudioClip;
+    [SerializeField]
+    private AudioClip _explosionAudioClip;
     // GAME OBJs
     [SerializeField]
     private GameObject _laserPrefab;
@@ -103,10 +109,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(0f, -1 * globalInfo.YScreenBorder + 1, 0f);
-        _life = transform.GetComponent<Life>();
+        _life = GetComponent<Life>();
         if (_life == null) Debug.LogError("Player::Life is null");
-        _audioManager = transform.GetComponent<AudioManager>();
-        if (_audioManager == null) Debug.LogError("Player::Audio Manager is null");
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null) Debug.LogError("Player::Audio Source is null");
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         if (_uiManager == null) Debug.LogError("Player::UI Manager is null");
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
@@ -127,6 +133,11 @@ public class Player : MonoBehaviour
         Score += points;
         _uiManager.changeScore(Score);
     }
+    private void setPlayAudioClip(AudioClip _audioClip)
+    {
+        _audioSource.clip = _audioClip;
+        _audioSource.Play();
+    }
     // PowerUp Methods
     public void applyPowerUp(int id)
     // PowerUp ids are: 0 = Triple Shot, 1: Speed up, 2: Shields
@@ -145,7 +156,7 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
-        Instantiate(_audioManager.PowerUp);
+        setPlayAudioClip(_powerupAudioClip);
     }
     void setSpeedUp()
     {
@@ -227,7 +238,7 @@ public class Player : MonoBehaviour
         {
             FireDefaultProjectile();
         }
-        Instantiate(_audioManager.Projectile);
+        setPlayAudioClip(_projectileAudioClip);
     }
     void FireDefaultProjectile()
     {
@@ -267,7 +278,7 @@ public class Player : MonoBehaviour
     {
         _spawnManager.onPlayerDeath();
         _uiManager.activateGameOver();
-        Instantiate(_audioManager.Explosion);
+        setPlayAudioClip(_explosionAudioClip);
         Destroy(this.gameObject);
     }
     private void managePlayerHurtAnimations()

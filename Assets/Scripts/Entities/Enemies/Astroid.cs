@@ -7,8 +7,6 @@ public class Astroid : MonoBehaviour
     // GameObjs
     [SerializeField]
     private GameObject _astroidAnimation;
-    [SerializeField]
-    private GameObject _explosionAudio;
     private SpawnManager _spawnManager;
     private CircleCollider2D _boxCollider;
     // VARs
@@ -63,7 +61,6 @@ public class Astroid : MonoBehaviour
         _boxCollider.enabled = false;
         Instantiate(_astroidAnimation, transform.position, Quaternion.identity);
         _spawnManager.beginSpawning();
-        Instantiate(_explosionAudio);
         Destroy(gameObject);
     }
 }
