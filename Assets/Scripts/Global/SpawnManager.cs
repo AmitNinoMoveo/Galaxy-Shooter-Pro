@@ -6,6 +6,8 @@ public class SpawnManager : MonoBehaviour
 {
     // GameObjs
     [SerializeField]
+    private GameObject _astroidPrefab;
+    [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
@@ -15,7 +17,7 @@ public class SpawnManager : MonoBehaviour
     private GameObject _powerUpsContainer;
     // VARs
     private readonly GlobalInfo globalInfo = GlobalInfo.Instance;
-    [SerializeField]
+    // [SerializeField]
     private bool _isSpawning = true;
     public bool IsSpawning
     {
@@ -26,15 +28,24 @@ public class SpawnManager : MonoBehaviour
         }
     }
     // Core Methods
-    void Start()
+    private void Start()
     {
+        Instantiate(_astroidPrefab);
+    }
+    public void beginSpawning()
+    {
+        StartCoroutine(waitBeforeSpawning());
+    }
+    IEnumerator waitBeforeSpawning()
+    {
+        yield return new WaitForSeconds(5f);
         StartCoroutine(SpawnRoutineEnemies(_enemyPrefab, _enemyContainer, 3.0f));
         StartCoroutine(SpawnRoutinePowerUps());
     }
     // General Methods
     IEnumerator SpawnRoutineEnemies(GameObject prefab, GameObject container, float timeToWait)
     {
-        while (this.IsSpawning)
+        while (_isSpawning)
         {
             GameObject spawn = instantiateGameObj(prefab);
             spawn.transform.parent = container.transform;
@@ -43,7 +54,7 @@ public class SpawnManager : MonoBehaviour
     }
     IEnumerator SpawnRoutinePowerUps()
     {
-        while (this.IsSpawning)
+        while (_isSpawning)
         {
             GameObject spawn = instantiateGameObj(_powerups[generateTandomPowerUpId()]);
             spawn.transform.parent = _powerUpsContainer.transform;

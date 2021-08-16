@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shieldsAnimation;
     private SpawnManager _spawnManager;
+    [SerializeField]
+    private GameObject[] _playerHurtAnimations;
     //  VARs
     [SerializeField]
     private float _speed = 8f;
@@ -241,6 +243,7 @@ public class Player : MonoBehaviour
     {
         if (IsShieldUp)
         {
+            addScore(Random.Range(20, 27));
             if (amount < ShieldCurrent)
             {
                 ShieldCurrent -= amount;
@@ -258,6 +261,7 @@ public class Player : MonoBehaviour
         }
         _life.decreseCurrentLife(amount);
         _uiManager.updateLivesSprite(_life.CurrentLife);
+        managePlayerHurtAnimations();
         if (!_life.IsAlive) onDeath();
     }
     private void onDeath()
@@ -265,5 +269,30 @@ public class Player : MonoBehaviour
         _spawnManager.onPlayerDeath();
         _uiManager.activateGameOver();
         Destroy(this.gameObject);
+    }
+    private void managePlayerHurtAnimations()
+    {
+        int randomIndex = Random.Range(0, 2);
+        if (_life.CurrentLife == 2)
+        {
+            _playerHurtAnimations[randomIndex].SetActive(true);
+            return;
+        }
+        if (_life.CurrentLife == 1)
+        {
+            if (checkIfPlayerAnimationActive())
+            {
+                _playerHurtAnimations[1].SetActive(true);
+                return;
+            }
+            else
+            {
+                _playerHurtAnimations[0].SetActive(true);
+            }
+        }
+    }
+    private bool checkIfPlayerAnimationActive()
+    {
+        return _playerHurtAnimations[0].activeInHierarchy == true;
     }
 };
