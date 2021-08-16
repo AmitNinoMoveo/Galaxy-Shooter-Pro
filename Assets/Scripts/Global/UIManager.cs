@@ -16,14 +16,22 @@ public class UIManager : MonoBehaviour
         }
     }
     [SerializeField]
-    private Text _gameOverText;
+    private Text _gameOverTitle;
+    [SerializeField]
+    private Text _gameOverRestart;
     [SerializeField]
     private Image _livesImg;
     [SerializeField]
     private Sprite[] _livesSprites;
+    private GameManager _gameManager;
     private void Start()
     {
         CurrentScoreText.text = "Score: " + 0;
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (_gameManager == null)
+        {
+            Debug.LogError("UI Manager::GameManager component is null");
+        }
     }
     public void changeScore(int newScoreAmount)
     {
@@ -35,6 +43,8 @@ public class UIManager : MonoBehaviour
     }
     public void activateGameOver()
     {
-        _gameOverText.gameObject.SetActive(true);
+        _gameOverTitle.gameObject.SetActive(true);
+        _gameOverRestart.gameObject.SetActive(true);
+        _gameManager.setGameOver();
     }
 }
