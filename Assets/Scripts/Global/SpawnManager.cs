@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviour
     private GameObject _powerUpsContainer;
     // VARs
     private readonly GlobalInfo globalInfo = GlobalInfo.Instance;
+    [SerializeField]
     private bool _isSpawning = true;
     public bool IsSpawning
     {

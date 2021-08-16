@@ -18,5 +18,10 @@ namespace UnityEngine
         {
             get => _xScreenBorder;
         }
+        public Vector3 getRandomVectorEnemy()
+        {
+            float randomX = Random.Range(-1 * (XScreenBorder - 1), (XScreenBorder - 1));
+            return new Vector3(randomX, 7.5f, 0);
+        }
     }
 }
