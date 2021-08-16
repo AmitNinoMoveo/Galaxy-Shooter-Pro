@@ -1,10 +1,10 @@
 namespace UnityEngine
 {
-    public class GeneralScene
+    public class GlobalInfo
     {
-        private static readonly GeneralScene _instance = new GeneralScene();
-        private GeneralScene() { }
-        public static GeneralScene Instance
+        private static readonly GlobalInfo _instance = new GlobalInfo();
+        private GlobalInfo() { }
+        public static GlobalInfo Instance
         {
             get => _instance;
         }
@@ -17,6 +17,11 @@ namespace UnityEngine
         public float XScreenBorder
         {
             get => _xScreenBorder;
+        }
+        public Vector3 getRandomVectorEnemy()
+        {
+            float randomX = Random.Range(-1 * (XScreenBorder - 1), (XScreenBorder - 1));
+            return new Vector3(randomX, 7.5f, 0);
         }
     }
 }

@@ -8,6 +8,9 @@ TagManager:
   - Enemy
   - Spawn_Manager
   - Container
+  - Projectiles
+  - Power_Up
+  - UI_Canvas
   layers:
   - Default
   - TransparentFX
