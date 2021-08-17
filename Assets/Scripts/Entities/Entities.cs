@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entities : DamageDealing
+public class Entities : Life
 {
-
+    [SerializeField]
+    public float Speed;
 }

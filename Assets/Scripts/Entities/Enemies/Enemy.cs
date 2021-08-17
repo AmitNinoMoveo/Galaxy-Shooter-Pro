@@ -2,25 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Entities
+public class Enemy : DamageDealing
 {
     // Game OBJs
     private AudioSource _audioSource;
     private Player _player;
     private Animator _animator;
     private BoxCollider2D _boxCollider;
-    // VARs
-    [SerializeField]
-    private float _speed = 4f;
-    public float Speed
-    {
-        get => _speed;
-        set
-        {
-            if (value < 0) return;
-            _speed = value;
-        }
-    }
     //CORE Methods
     private void Start()
     {
@@ -29,9 +17,11 @@ public class Enemy : Entities
         _animator = GetComponent<Animator>();
         if (_animator.GetType() == null) Debug.Log("Enemy Component::Animator is null");
         _boxCollider = GetComponent<BoxCollider2D>();
-        if (_animator.GetType() == null) Debug.Log("Enemy Component::BoxCollider2D is null");
+        if (_boxCollider.GetType() == null) Debug.Log("Enemy Component::BoxCollider2D is null");
         _audioSource = GetComponent<AudioSource>();
         if (_audioSource.GetType() == null) Debug.Log("Enemy Component::AudioSource is null");
+
+        StartCoroutine(fireEveryFewSeconds());
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -58,7 +48,7 @@ public class Enemy : Entities
     }
     void Update()
     {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        transform.Translate(Vector3.down * Speed * Time.deltaTime);
         wrapOnBottomScreen();
     }
     // Damage Dealing Methods

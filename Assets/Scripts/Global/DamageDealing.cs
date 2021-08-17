@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageDealing : Life
+public class DamageDealing : Entities
 {
     [SerializeField]
     private GameObject _laserPrefab;

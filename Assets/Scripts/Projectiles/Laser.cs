@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : MonoBehaviour
+public class Laser : GlobalInfo
 {
     [SerializeField]
     private float _speed = 10f;
@@ -17,9 +17,9 @@ public class Laser : MonoBehaviour
     }
     void destroyIfOutOfScreen()
     {
-        if (transform.position.y >= 6f)
+        if (transform.position.y >= YScreenBorder || transform.position.y <= -1 * YScreenBorder)
         {
-            if(transform.parent != null)
+            if (transform.parent != null)
             {
                 Destroy(transform.parent.gameObject);
             }
