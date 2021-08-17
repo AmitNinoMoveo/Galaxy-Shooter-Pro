@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entities
 {
     // Game OBJs
-    [SerializeField]
-    private GameObject _enemyPrefab;
     private AudioSource _audioSource;
     private Player _player;
     private Animator _animator;
     private BoxCollider2D _boxCollider;
-    // GLOBAL
-    private GlobalInfo globalInfo = GlobalInfo.Instance;
-    [SerializeField]
     // VARs
+    [SerializeField]
     private float _speed = 4f;
     public float Speed
     {
@@ -39,17 +35,23 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.transform.name == _player.transform.name)
         {
+            if (_player.IsShieldUp)
+            {
+                decreaseLife(2);
+            }
+            else
+            {
+                decreaseLife(2);
+            }
             _player.decreaseLife();
-            _player.addScore(Random.Range(2, 5));
-            DestroyEnemy();
             return;
         }
         else if (other.tag == "Projectiles")
         {
             _player.addScore(Random.Range(8, 15));
-            DestroyEnemy();
+            decreaseLife();
             Destroy(other.gameObject);
         };
 
@@ -58,6 +60,21 @@ public class Enemy : MonoBehaviour
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
         wrapOnBottomScreen();
+    }
+    // Damage Dealing Methods
+    IEnumerator fireEveryFewSeconds()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(FireRate);
+            Fire();
+        }
+    }
+    // Health
+    void decreaseLife(int amount = 1)
+    {
+        decreseCurrentLife(amount);
+        if (!IsAlive) DestroyEnemy();
     }
     void DestroyEnemy()
     {
@@ -72,7 +89,7 @@ public class Enemy : MonoBehaviour
     {
         if (transform.position.y < -7f)
         {
-            transform.position = globalInfo.getRandomVectorEnemy();
+            transform.position = getRandomVectorEnemy();
         }
     }
 }

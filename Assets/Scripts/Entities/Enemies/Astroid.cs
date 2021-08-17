@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Astroid : MonoBehaviour
+public class Astroid : GlobalInfo
 {
     // GameObjs
     [SerializeField]
@@ -24,7 +24,7 @@ public class Astroid : MonoBehaviour
     }
     void Start()
     {
-        transform.position = new Vector3(0, GlobalInfo.Instance.YScreenBorder, 0);
+        transform.position = new Vector3(0, YScreenBorder, 0);
         _boxCollider = GetComponent<CircleCollider2D>();
         if (_boxCollider == null) Debug.Log("Astroid::Circle Collider 2D is null");
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();

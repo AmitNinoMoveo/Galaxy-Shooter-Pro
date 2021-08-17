@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUp : MonoBehaviour
+public class PowerUp : GlobalInfo
 {
     // VARs
     [SerializeField]
@@ -34,7 +34,7 @@ public class PowerUp : MonoBehaviour
     void calculateMovement()
     {
         transform.Translate(Vector3.down * Speed * Time.deltaTime);
-        if (transform.position.y < (-1 * GlobalInfo.Instance.YScreenBorder))
+        if (transform.position.y < (-1 * YScreenBorder))
         {
             Destroy(this.gameObject);
         };

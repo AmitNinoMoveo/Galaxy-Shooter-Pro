@@ -98,7 +98,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e708123ef5dc14d7c850dd8a10bb6905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 887903101113844994}
+  _maxLife: 2
+  _currentLife: 2
+  _isAlive: 1
+  _laserPrefab: {fileID: 5120745348146560483, guid: 69b514c6bcdfa4b4ebaa1dedeb81e580,
+    type: 3}
+  _tripleShotPrefab: {fileID: 861468724292514354, guid: 951b169c91e074c20a8d1342df7c55af,
+    type: 3}
   _speed: 4
 --- !u!61 &3160087515490927705
 BoxCollider2D:

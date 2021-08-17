@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1304,7 +1304,6 @@ GameObject:
   - component: {fileID: 1365414365}
   - component: {fileID: 1365414364}
   - component: {fileID: 1365414363}
-  - component: {fileID: 1365414367}
   - component: {fileID: 1365414366}
   - component: {fileID: 1365414368}
   m_Layer: 0
@@ -1326,14 +1325,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2432a2eb3fdd740de850b1dbd08663c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileAudioClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc,
-    type: 3}
-  _powerupAudioClip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
-  _explosionAudioClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  _maxLife: 3
+  _currentLife: 3
+  _isAlive: 1
   _laserPrefab: {fileID: 5120745348146560483, guid: 69b514c6bcdfa4b4ebaa1dedeb81e580,
     type: 3}
   _tripleShotPrefab: {fileID: 861468724292514354, guid: 951b169c91e074c20a8d1342df7c55af,
     type: 3}
+  _projectileAudioClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc,
+    type: 3}
+  _powerupAudioClip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
+  _explosionAudioClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _shieldsAnimation: {fileID: 620601211}
   _playerHurtAnimations:
   - {fileID: 1591834719}
@@ -1341,7 +1343,6 @@ MonoBehaviour:
   _speed: 10
   _speedUpMultiplier: 1.3
   _fireRate: 0.15
-  _isTripleShot: 0
   _isSpeedUp: 0
   _isShieldUp: 0
   _shieldMax: 1
@@ -1441,21 +1442,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.294961, y: 3.868493}
   m_EdgeRadius: 0
---- !u!114 &1365414367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1365414362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d551b791e58f04fe9ac6d62df3ccefae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxLife: 3
-  _currentLife: 3
-  _isAlive: 1
 --- !u!82 &1365414368
 AudioSource:
   m_ObjectHideFlags: 0

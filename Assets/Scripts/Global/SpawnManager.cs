@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : GlobalInfo
 {
     // GameObjs
     [SerializeField]
@@ -15,9 +15,6 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _powerups;
     [SerializeField]
     private GameObject _powerUpsContainer;
-    // VARs
-    private readonly GlobalInfo globalInfo = GlobalInfo.Instance;
-    // [SerializeField]
     private bool _isSpawning = true;
     public bool IsSpawning
     {
@@ -71,7 +68,7 @@ public class SpawnManager : MonoBehaviour
     }
     Vector3 generateVector3()
     {
-        return new Vector3(Random.Range(-1 * (globalInfo.XScreenBorder - 2), (globalInfo.XScreenBorder - 2)), globalInfo.YScreenBorder, 0);
+        return new Vector3(Random.Range(-1 * (XScreenBorder - 2), (XScreenBorder - 2)), YScreenBorder, 0);
     }
     // Player Methods
     public void onPlayerDeath()

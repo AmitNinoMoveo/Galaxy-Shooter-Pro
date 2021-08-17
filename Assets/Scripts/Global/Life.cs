@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Life : MonoBehaviour
+public class Life : GlobalInfo
 {
     [SerializeField]
     private int _maxLife = 1;
