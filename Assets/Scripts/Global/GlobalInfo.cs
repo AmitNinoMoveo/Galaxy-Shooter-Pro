@@ -2,12 +2,12 @@ namespace UnityEngine
 {
     public class GlobalInfo : MonoBehaviour
     {
-        private static readonly float _yScreenBorder = 6f;
-        private static readonly float _xScreenBorder = 11f;
+        private float _yScreenBorder = 6f; // size is 6f
         public float YScreenBorder
         {
             get => _yScreenBorder;
         }
+        private float _xScreenBorder = 11f; // size is 11f
         public float XScreenBorder
         {
             get => _xScreenBorder;

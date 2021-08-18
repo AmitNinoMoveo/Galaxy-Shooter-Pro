@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class Enemy : DamageDealing
 {
     // Game OBJs
@@ -10,8 +11,9 @@ public class Enemy : DamageDealing
     private Animator _animator;
     private BoxCollider2D _boxCollider;
     //CORE Methods
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         _player = GameObject.Find("Player").GetComponent<Player>();
         if (_player.GetType() == null) Debug.Log("Enemy Component::Player is null");
         _animator = GetComponent<Animator>();
@@ -27,16 +29,8 @@ public class Enemy : DamageDealing
     {
         if (other.transform.name == _player.transform.name)
         {
-            if (_player.IsShieldUp)
-            {
-                decreaseLife(2);
-            }
-            else
-            {
-                decreaseLife(2);
-            }
             _player.decreaseLife();
-            return;
+            decreaseLife(2);
         }
         else if (other.tag == "Projectiles")
         {
@@ -44,7 +38,6 @@ public class Enemy : DamageDealing
             decreaseLife();
             Destroy(other.gameObject);
         };
-
     }
     void Update()
     {
@@ -56,14 +49,15 @@ public class Enemy : DamageDealing
     {
         while (true)
         {
-            yield return new WaitForSeconds(FireRate);
             Fire();
+            yield return new WaitForSeconds(FireRate);
         }
     }
     // Health
     void decreaseLife(int amount = 1)
     {
         decreseCurrentLife(amount);
+        _audioSource.Play();
         if (!IsAlive) DestroyEnemy();
     }
     void DestroyEnemy()
@@ -71,7 +65,6 @@ public class Enemy : DamageDealing
         Speed = 1f;
         _animator.SetTrigger("OnEnemyDeath");
         _boxCollider.enabled = false;
-        _audioSource.Play();
         Destroy(this.gameObject, 2.8f);
     }
     //Movement Methods

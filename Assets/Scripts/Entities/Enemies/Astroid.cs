@@ -22,7 +22,7 @@ public class Astroid : GlobalInfo
     {
         get => _movementSpeed;
     }
-    void Start()
+    public void Start()
     {
         transform.position = new Vector3(0, YScreenBorder, 0);
         _boxCollider = GetComponent<CircleCollider2D>();

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(UIManager))]
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(SpawnManager))]
 public class Player : PlayerMovement
 {
     // OTHER COMPONENTS
@@ -73,9 +76,11 @@ public class Player : PlayerMovement
     }
 
     // Core Methods
-    void Start()
+    public override void Start()
     {
+        base.Start();
         transform.position = new Vector3(0f, -1 * YScreenBorder + 1, 0f);
+
         _audioSource = GetComponent<AudioSource>();
         if (_audioSource == null) Debug.LogError("Player::Audio Source is null");
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
@@ -83,8 +88,9 @@ public class Player : PlayerMovement
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         if (_spawnManager == null) Debug.LogError("Player::SpawnManager is null");
     }
-    void Update()
+    public override void Update()
     {
+        base.Update();
         if (CheckIfFiring())
         {
             Fire();
@@ -105,6 +111,21 @@ public class Player : PlayerMovement
     {
         _audioSource.clip = _audioClip;
         _audioSource.Play();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Projectiles")
+        {
+            Laser laser = other.GetComponent<Laser>();
+            if (laser.GetType() == null) Debug.Break();
+            if (laser.IsEnemy)
+            {
+                decreaseLife();
+                setPlayAudioClip(_explosionAudioClip);
+                Destroy(other);
+            }
+        }
     }
     // PowerUp Methods
     public void applyPowerUp(int id)
@@ -182,7 +203,6 @@ public class Player : PlayerMovement
         {
             addScore(Random.Range(20, 27));
             amount = calculateShields(amount);
-
         }
         decreseCurrentLife(amount);
         _uiManager.updateLivesSprite(CurrentLife);

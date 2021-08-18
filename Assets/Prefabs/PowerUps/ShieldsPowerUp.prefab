@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939f83b659a99430e8fd889b1cf4c56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _yScreenBorder: 6
+  _xScreenBorder: 11
   _speed: 3
   PowerUpId: 2
 --- !u!95 &6988181274413420955

@@ -1303,6 +1303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1365414365}
   - component: {fileID: 1365414364}
+  - component: {fileID: 1365414367}
   - component: {fileID: 1365414366}
   - component: {fileID: 1365414368}
   - component: {fileID: 1365414363}
@@ -1328,12 +1329,17 @@ MonoBehaviour:
   _maxLife: 3
   _currentLife: 3
   _isAlive: 1
-  Speed: 5
+  _speed: 7
   _laserPrefab: {fileID: 5120745348146560483, guid: 69b514c6bcdfa4b4ebaa1dedeb81e580,
     type: 3}
   _tripleShotPrefab: {fileID: 861468724292514354, guid: 951b169c91e074c20a8d1342df7c55af,
     type: 3}
   _fireRate: 0.15
+  _isTripleShot: 0
+  _direction: {x: 0, y: 0, z: 0}
+  _isSpacePressed: 0
+  _speedUpMultiplier: 1.7
+  _isSpeedUp: 0
   _projectileAudioClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc,
     type: 3}
   _powerupAudioClip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
@@ -1440,6 +1446,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.294961, y: 3.868493}
   m_EdgeRadius: 0
+--- !u!50 &1365414367
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365414362}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!82 &1365414368
 AudioSource:
   m_ObjectHideFlags: 0

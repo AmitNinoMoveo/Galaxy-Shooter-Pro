@@ -5,24 +5,24 @@ using UnityEngine;
 public class PlayerMovement : PlayerInput
 {
     [SerializeField]
-    public float SpeedUpMultiplier { get; private set; }
-    [SerializeField]
-    public bool IsSpeedUp;
-    private void Update()
+    public float _speedUpMultiplier;
+    public float SpeedUpMultiplier
     {
-        ifKeyPressedMoveObject();
-        wrapIfOutOfScreen();
+        get => _speedUpMultiplier;
+        private set => _speedUpMultiplier = value;
     }
-    void ifKeyPressedMoveObject()
+    [SerializeField]
+    private bool _isSpeedUp;
+    public bool IsSpeedUp
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        if (System.Convert.ToBoolean(horizontalInput) || System.Convert.ToBoolean(verticalInput))
-        {
-            Vector3 vector = new Vector3(horizontalInput, verticalInput, 0);
-            transform.Translate(vector * calculateSpeed() * Time.deltaTime);
-        };
+        get => _isSpeedUp;
+        set => _isSpeedUp = value;
+    }
+    public override void Update()
+    {
+        base.Update();
+        transform.Translate(Direction * calculateSpeed() * Time.deltaTime);
+        wrapIfOutOfScreen();
     }
     float calculateSpeed()
     {

@@ -5,14 +5,26 @@ using UnityEngine;
 public class Laser : GlobalInfo
 {
     [SerializeField]
-    private float _speed = 10f;
+    private float _speed;
     public float Speed
     {
         get => _speed;
     }
+    [SerializeField]
+    private bool _isEnemy = false;
+    public bool IsEnemy
+    {
+        get => _isEnemy;
+        set => _isEnemy = value;
+    }
+    public Vector3 direction;
+    private void Start()
+    {
+        direction = IsEnemy ? Vector3.down : Vector3.up;
+    }
     void Update()
     {
-        transform.Translate(Vector3.up * this.Speed * Time.deltaTime);
+        transform.Translate(direction * this.Speed * Time.deltaTime);
         destroyIfOutOfScreen();
     }
     void destroyIfOutOfScreen()
@@ -23,7 +35,7 @@ public class Laser : GlobalInfo
             {
                 Destroy(transform.parent.gameObject);
             }
-            DestroyImmediate(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

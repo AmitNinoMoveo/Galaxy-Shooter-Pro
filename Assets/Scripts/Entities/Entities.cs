@@ -5,5 +5,13 @@ using UnityEngine;
 public class Entities : Life
 {
     [SerializeField]
-    public float Speed;
+    private float _speed;
+    public float Speed
+    {
+        get => _speed;
+        set
+        {
+            _speed = value > 0 ? value : 0;
+        }
+    }
 }

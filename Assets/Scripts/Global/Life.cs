@@ -4,7 +4,7 @@ using UnityEngine;
 public class Life : GlobalInfo
 {
     [SerializeField]
-    private int _maxLife = 1;
+    private int _maxLife;
     public int MaxLife
     {
         get => _maxLife;
@@ -17,7 +17,7 @@ public class Life : GlobalInfo
         }
     }
     [SerializeField]
-    private int _currentLife = 1;
+    private int _currentLife;
     public int CurrentLife
     {
         get => _currentLife;
@@ -30,7 +30,7 @@ public class Life : GlobalInfo
         }
     }
     [SerializeField]
-    private bool _isAlive = true;
+    private bool _isAlive;
     public bool IsAlive
     {
         get => _isAlive;
